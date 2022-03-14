@@ -110,19 +110,25 @@ int main(void)
   pcb->netif_idx = netif_get_index(&gnetif);
 
   struct pbuf *p;
-  p = pbuf_alloc(PBUF_TRANSPORT,200,PBUF_RAM);
-  unsigned char buffer[100] = {};
-
-  p->payload = buffer;
-  p->len = 100;
+  p = pbuf_alloc(PBUF_TRANSPORT,100,PBUF_RAM);
+//  unsigned char buffer[100] = {};
+//
+//  p->payload = buffer;
+//  p->len = 100;
+  memset(p->payload, 0xAB, 100);
+  p->tot_len = 100;
 
   while (1)
   {
     /* USER CODE END WHILE */
 
-	  err_t err = udp_send(pcb,p->payload);
+	  if(gnetif.ip_addr.addr != 0) {
+		 err_t err = udp_send(pcb,p);
+	  }
 
 	  MX_LWIP_Process();
+
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
