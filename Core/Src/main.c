@@ -102,7 +102,6 @@ int main(void)
 	ip_addr_t pc_ipaddr;
 	IP4_ADDR(&pc_ipaddr,  192, 168,   1, 83);
 
-  const uint8_t buf[100] = {};
   struct udp_pcb * pcb = udp_new();
   udp_bind(pcb, IP_ADDR_ANY, 7000);
 	udp_connect(pcb, &pc_ipaddr, AGENT_PORT);
@@ -115,6 +114,7 @@ int main(void)
   unsigned char buffer[100] = {};
 
   p->payload = buffer;
+  p->len = 100;
 
   while (1)
   {

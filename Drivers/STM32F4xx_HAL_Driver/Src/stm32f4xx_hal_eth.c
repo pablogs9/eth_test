@@ -367,6 +367,9 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
   /* Select MII or RMII Mode*/
   SYSCFG->PMC &= ~(SYSCFG_PMC_MII_RMII_SEL);
   SYSCFG->PMC |= (uint32_t)heth->Init.MediaInterface;
+
+    HAL_Delay(2);
+
   /* Dummy read to sync SYSCFG with ETH */
   (void)SYSCFG->PMC;
 
